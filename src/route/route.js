@@ -16,5 +16,4 @@ router.post("/card", createCard)
 
 router.get("/card", getCardDetails)
 
-
 module.exports = router

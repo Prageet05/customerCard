@@ -1,4 +1,22 @@
 {
+  "name": "customercard",
+  "description": "Problem Statement:\r Create two API’s which can perform the specified CRUD operations.The project structure should\r have models, middlewares, controllers and services. Write MongoDB queries to fetch, update,\r add or delete data from the specified collections. You can assume that the collections already\r exist in the database and just define the project structure.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prageet05/customerCard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Prageet05/customerCard/issues"
+  },
+  "homepage": "https://github.com/Prageet05/customerCard#readme",
   "dependencies": {
     "express": "^4.18.2",
     "moment": "^2.29.4",

@@ -6,12 +6,12 @@ const { isValidObjectId, isValidPhone, isValidDate, isValidEmail, isValidString,
 const createCustomer = async function (req, res) {
     try {
         let data = req.body
-        
+
         let { firstName, lastName, mobileNumber, DOB, emailID, address, customerID } = data
-        
-        if (Object.keys(data).length == 0) 
-        return res.status(400).send({ status: false, message: "Please provide data to create customer" })
-        
+
+        if (Object.keys(data).length == 0)
+            return res.status(400).send({ status: false, message: "Please provide data to create customer" })
+
         if (!firstName) return res.status(400).send({ status: false, message: "first name is mandatory" })
         if (!isValidString(firstName)) return res.status(400).send({ status: false, message: "please enter a valid first name" })
 
@@ -31,7 +31,7 @@ const createCustomer = async function (req, res) {
 
         if (!customerID) return res.status(400).status({ status: false, message: "please enter customerId" })
         if (!isValidCustomerId(customerID)) return res.status(400).status({ status: false, message: "please enter valid customerId" })
-        
+
         let findEmail = await customerModel.findOne({ emailID: emailID })
         if (findEmail) {
             return res.status(400).send({ status: false, message: "emailId  already exists" })
@@ -40,7 +40,7 @@ const createCustomer = async function (req, res) {
         if (findMobile) {
             return res.status(400).send({ status: false, message: "mobile number already exists" })
         }
-        
+
         const customer = await customerModel.create(data)
         return res.status(201).send({ status: true, message: "Successfully created", data: customer })
     }
@@ -48,12 +48,13 @@ const createCustomer = async function (req, res) {
         return res.status(500).send({ status: false, message: err.message })
     }
 }
+
 //============================================GET CUSTOMER=======================================================//
 
 const getCustomer = async function (req, res) {
     try {
         const customer = await customerModel.find({ status: "ACTIVE" })
-        return res.status(200).send({ status: true, message: "Customer details data",data:customer })
+        return res.status(200).send({ status: true, message: "Customer details data", data: customer })
     }
     catch (error) {
         return res.status(500).send({ status: false, message: error.message })
@@ -66,12 +67,12 @@ const deleteCustomer = async function (req, res) {
     try {
         let customerId = req.params.customerId
         if (!isValidObjectId(customerId)) { return res.status(400).send({ status: false, message: "Please enter a valid customerId" }) }
-        
+
         let findCustomer = await customerModel.findOne({ _id: customerId, status: "ACTIVE" })
         if (!findCustomer) { return res.status(404).send({ status: false, message: "customer not found" }) }
 
-        const deleteData=await customerModel.findOneAndUpdate({ _id: customerId }, { status: "INACTIVE" },{new:true})
-        return res.status(200).send({ status: true, message: "deleted Succesfully" ,data:deleteData})
+        const deleteData = await customerModel.findOneAndUpdate({ _id: customerId }, { status: "INACTIVE" }, { new: true })
+        return res.status(200).send({ status: true, message: "deleted Succesfully", data: deleteData })
     }
     catch (error) {
         return res.status(500).send({ status: false, message: error.message })
@@ -79,4 +80,4 @@ const deleteCustomer = async function (req, res) {
 }
 
 //===============================================================================================================//
-module.exports={createCustomer, getCustomer ,deleteCustomer}
+module.exports = { createCustomer, getCustomer, deleteCustomer }
